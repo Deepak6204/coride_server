@@ -24,11 +24,18 @@ const rideSchema = new Schema({
     timestamps: true,
 })
 
-rideSchema.static("getRides", async function(req,res){
+rideSchema.static("getRides", async function(){
     const rides = this.find({})
     if(!rides)throw new Error("No rides found")
 
     return rides;
+})
+
+rideSchema.static("rideDetails", async function(id){
+    const ride = this.find({_id:id})
+    if(!ride)throw new Error("No Ride with mentioned id")
+    
+    return ride;
 })
 
 const Ride = model("ride", rideSchema)
