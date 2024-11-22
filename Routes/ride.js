@@ -1,12 +1,18 @@
-const {Router} = require("express")
-const postRideController = require("../Controllers/ride/postRideController")
-const getRideController = require("../Controllers/ride/getRideController")
-const rideDetailsController = require("../Controllers/ride/rideDetailsController")
+const { Router } = require("express");
+const {
+	getRide,
+	postRide,
+	rideDetails,
+	deleteRide,
+	reqPool,
+	deleteReq,
+} = require("../Controllers/rideController");
 
+const router = Router();
+router.route("/").post(postRide).get(getRide);
 
-const router = Router()
-router.post("/", postRideController)
-router.get("/", getRideController)
-router.get("/:id", rideDetailsController)
+router.route("/:id").get(rideDetails).delete(deleteRide);
 
-module.exports = router
+router.route("/req/:id").post(reqPool).delete(deleteReq);
+
+module.exports = router;

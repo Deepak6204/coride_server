@@ -1,5 +1,13 @@
 const User = require("../Models/User");
-const { createAuthToken } = require("../Services/authentication");
+const {createAuthToken, validateAuthToken } = require("../Services/authentication");
+
+
+async function signinController(req,res){
+    const {email, password} = req.body;
+    const token = await User.matchPasswordandGenerateToken(email, password)
+    const payload = validateAuthToken(token)
+    return res.status(200).json({message:`Welcome`, user: payload})
+}
 
 async function signupController(req,res){
     const {fullName, email, password} = req.body;
@@ -19,4 +27,4 @@ async function signupController(req,res){
    
 }
 
-module.exports = signupController
+module.exports = {signupController, signinController}

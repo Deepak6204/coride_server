@@ -1,11 +1,12 @@
-const {Router} = require("express")
-const signupController = require("../Controllers/signupController")
-const signinController = require("../Controllers/signinController")
+const { Router } = require("express");
+const {
+	signinController,
+	signupController,
+} = require("../Controllers/authController");
 
-const router=Router();
+const router = Router();
 
+router.post("/api/signup", signupController);
+router.post("/api/signin", signinController);
 
-router.post("/api/signup", signupController)
-router.post("/api/signin", signinController)
-
-module.exports = router
+module.exports = router;
